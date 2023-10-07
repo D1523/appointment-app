@@ -5,10 +5,11 @@ import Col from "react-bootstrap/Col"
 import AddModel from "./AddModel"
 import{useState} from "react"
 
-const Doctors = () => {
+const Doctors = ({apps, setApps}) => {
     const [show, setShow]=useState(false)
-    console.log(doctorData)
-  return (
+    const [drName, setDrName]=useState("")
+
+    return (
     <Container className="p-2">
         <h3 className="display-6 mb-3"
         style={{color:"rgb(166 90, 189)"}}>
@@ -17,13 +18,19 @@ const Doctors = () => {
                 {doctorData.map(({id,img,dep,name})=>(
 <Col xs={6} sm={4} md={3} key={id}>
     <img src={img} alt={name} className="img-thumbnail doctor-img"
-    onClick={()=>setShow(true)}/>
+    onClick={()=>{
+        setDrName(name)
+        setShow(true)
+    }}/>
     <h5>{name}</h5>
     <h6>{dep}</h6>
 </Col>
                 ))}
             </Row>
-            <AddModel show={show} handleClose={()=>setShow(false)}/>
+            <AddModel show={show} handleClose={()=>setShow(false)}
+            apps={apps} 
+            setApps={setApps}
+            drName={drName}/>
             </Container>
   )
 }
